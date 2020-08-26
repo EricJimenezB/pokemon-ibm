@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-12 text-center text-danger">
+        <img src="../../assets/pokemon.png" class="img-fluid pokemon-img">
+        <h1>Welcome {{ username }}!!</h1>
+    </div>
+    <div class="col-12 text-center text-secondary">
+        <strong>From now on you become a Pokémon Master!!</strong>
+        <h4>We are pleased to introduce you to your new friend</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 aling-center">
+        <div class="card yourpoke" style="max-width: 500px;">
+            <img class="card-img-top" class="img-fluid" [src]="myPokemonData.sprites.other['official-artwork'].front_default">
+            <div class="card-body">
+                <h4 class="card-title"><img src="../../assets/pokeball.png" width="40"> {{ myPokemonData.name | uppercase }}</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+                <ngb-accordion #acc="ngbAccordion">
+                    <ngb-panel title="Location area">
+                        <ng-template ngbPanelContent>
+                        
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel title="Stats">
+                        <ng-template ngbPanelContent>
+                            <div class="row">
+                                <div class="col-12"><strong>Stat</strong></div>
+                            </div>
+                            <div class="row" *ngFor="let stat of myPokemonData.stats">
+                                <div class="col-4">{{ stat.stat.name | titlecase }}</div>
+                                <div class="col-8">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="200" aria-valuemin="0" aria-valuemax="200" style="width: {{ (100/200)*stat.base_stat }}%">{{ stat.base_stat }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel title="Types">
+                        <ng-template ngbPanelContent>
+                            <ul>
+                                <li *ngFor="let type of myPokemonData.types">{{ type.type.name |titlecase }}</li>
+                            </ul>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel title="Moves">
+                        <ng-template ngbPanelContent>
+                            <ul>
+                                <li *ngFor="let move of myPokemonData.moves">{{ move.move.name |titlecase }}</li>
+                            </ul>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </ul>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,51 @@
+<h3><img src="../../../assets/pokeball.png" width="40"> Pokemon List</h3>
+<div class="row filters">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="text" class="form-control search"  placeholder="Find your Pokemon" [(ngModel)]="search">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-outline-dark btn-block" *ngIf="search !== ''" (click)="searchPokemon()">Search</button>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-outline-primary btn-block" *ngIf="showAll" (click)="showFirstPage()">Show All</button>
+    </div>
+</div>
+<div class="row" *ngIf="pokemons.length === 0">
+    <div class="col-12">
+        <div class="alert alert-danger text-center" role="alert">
+            Pokemon not found
+        </div>
+    </div>
+</div>
+<div class="row listPoke">
+    <div class="list" *ngFor="let pokemon of pokemons">
+        <div class="card bg-light mb-2">
+            <div class="card-header bg-danger text-center">
+                <strong style="display:block;">{{ pokemon.name | uppercase }}</strong>
+            </div>
+            <div class="card-body text-center">
+             <img [src]="pokemon.sprites.other['official-artwork'].front_default" width="120">
+            </div>
+            <div class="card-footer bg-sark text-right">
+                <button *ngIf="pokemon.favorites" class="btn" (click)="deleteFavorite(pokemon.id)"><i class="fas fa-heart fa-lg text-primary"></i></button>
+                <button *ngIf="!pokemon.favorites" class="btn" (click)="addFavorite(pokemon.id)"><i class="fas fa-heart fa-lg text-secondary"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="actualPage !== 0">
+    <div class="col-12">
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center">
+              <li class="page-item" *ngIf="previous"><button class="page-link" tabindex="-1" (click)="pagination(previous,false)">Previous</button></li>
+              <li class="page-item disabled" *ngIf="previous"><button class="page-link">{{ actualPage-1 }}</button></li>
+              <li class="page-item active"><button class="page-link">{{ actualPage }}</button></li>
+              <li class="page-item disabled" *ngIf="next"><button class="page-link">{{ actualPage+1 }}</button></li>
+              <li class="page-item" *ngIf="next"><button class="page-link" (click)="pagination(next,true)">Next</button></li>
+            </ul>
+          </nav>
+    </div>
+</div>
+

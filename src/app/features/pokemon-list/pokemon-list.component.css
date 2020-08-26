@@ -1,0 +1,28 @@
+.listPoke {
+    margin-left: 10px;
+}
+
+.list {
+    margin-left: 7px;
+}
+
+.list > .card {
+    width: 10rem;
+}
+
+.search:focus {
+    border-color: rgba(212, 8, 8, 0.911);
+    border-width: 1.5px;
+    box-shadow: none;
+}
+
+.filters {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .filters button {
+        margin-top: 5px;
+    }
+}
