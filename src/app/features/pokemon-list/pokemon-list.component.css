@@ -1,9 +1,6 @@
-.listPoke {
-    margin-left: 10px;
-}
-
 .list {
-    margin-left: 7px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .list > .card {

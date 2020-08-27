@@ -16,6 +16,14 @@ export class FavoritesService {
     this.numberFavorites = new BehaviorSubject<number>(this.getNumberFavorites());
     this.changeNumberFavorites = this.numberFavorites.asObservable();
   }
+
+  getFavorites(){
+    let pokemons = [];
+    if ( localStorage.getItem(this.idFavorites) != null){
+      pokemons = JSON.parse(localStorage.getItem(this.idFavorites));
+    }
+    return pokemons;
+  }
   getNumberFavorites(){
     let pokemons = [];
     if ( localStorage.getItem(this.idFavorites) != null){

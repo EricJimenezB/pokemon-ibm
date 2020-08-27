@@ -19,6 +19,7 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
     this.welcomePoke.getMyPokemon(this.myPokemon).then(item => {
       this.myPokemonData = item;
+      console.log(item);
     }).catch(error => {
       console.log(error);
     });

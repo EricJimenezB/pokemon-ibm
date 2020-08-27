@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FavoritesService } from './favorites.service';
+import { resolve } from 'dns';
+import { rejects } from 'assert';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,31 @@ export class PokeDataService {
   constructor(private httpClient: HttpClient , private favoritesService: FavoritesService) { 
     this.url = 'https://pokeapi.co/api/v2/pokemon/';
   }
+
+  getAllFavorites(){
+    const favorites = this.favoritesService.getFavorites();
+    return new Promise((resolve, reject) => {
+      if (favorites.length === 0){
+        reject(favorites);
+      }
+      else{
+        let allFavorites = [];
+        favorites.forEach(item => {
+          let infoPoke = {};
+          this.httpClient.get(this.url + item.id).toPromise()
+          .then(poke => {
+            infoPoke = poke;
+            this.httpClient.get(poke.location_area_encounters).toPromise().then(locations => {
+              infoPoke.locations_areas = locations;
+              allFavorites.push(infoPoke);
+            });
+          });
+        });
+        console.log(allFavorites);
+        resolve(allFavorites);
+      }
+    });
+   }
 
   findPokemon(name: string): Promise<any>{
     const arrPoke = [];

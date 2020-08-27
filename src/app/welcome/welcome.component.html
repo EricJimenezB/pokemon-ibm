@@ -9,7 +9,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12 aling-center">
+    <div class="col-12">
         <div class="card yourpoke" style="max-width: 500px;">
             <img class="card-img-top" class="img-fluid" [src]="myPokemonData.sprites.other['official-artwork'].front_default">
             <div class="card-body">
@@ -19,12 +19,20 @@
                 <ngb-accordion #acc="ngbAccordion">
                     <ngb-panel title="Location area">
                         <ng-template ngbPanelContent>
-                        
+                            <div *ngIf="myPokemonData.locations_areas.length === 0">
+                                There is no data available
+                            </div>
+                            <ul>
+                                <li *ngFor="let location of myPokemonData.locations_areas">{{ location.location_area.name |titlecase }}</li>
+                            </ul>
                         </ng-template>
                     </ngb-panel>
                     <ngb-panel title="Stats">
                         <ng-template ngbPanelContent>
-                            <div class="row">
+                            <div *ngIf="myPokemonData.stats.length === 0">
+                                There is no data available
+                            </div>
+                            <div class="row" *ngIf="myPokemonData.stats.length !== 0">
                                 <div class="col-12"><strong>Stat</strong></div>
                             </div>
                             <div class="row" *ngFor="let stat of myPokemonData.stats">
@@ -39,6 +47,9 @@
                     </ngb-panel>
                     <ngb-panel title="Types">
                         <ng-template ngbPanelContent>
+                            <div *ngIf="myPokemonData.types.length === 0">
+                                There is no data available
+                            </div>
                             <ul>
                                 <li *ngFor="let type of myPokemonData.types">{{ type.type.name |titlecase }}</li>
                             </ul>
@@ -46,6 +57,9 @@
                     </ngb-panel>
                     <ngb-panel title="Moves">
                         <ng-template ngbPanelContent>
+                            <div *ngIf="myPokemonData.moves.length === 0">
+                                There is no data available
+                            </div>
                             <ul>
                                 <li *ngFor="let move of myPokemonData.moves">{{ move.move.name |titlecase }}</li>
                             </ul>

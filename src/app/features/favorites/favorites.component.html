@@ -1,1 +1,92 @@
-<p>favorites works!</p>
+<h3><img src="../../../assets/favorites.png" width="40"> Favorites</h3>
+<div class="row" *ngIf="error">
+    <div class="col">
+        <img src="../../../assets/ash.png" class="no-favorites">
+    </div>
+    <div class="col">
+        <div class="jumbotron bg-white">
+            <h1 class="display-4">You have no favorites Pokemon. What are you waiting for?</h1>
+          </div>
+    </div>
+</div>
+<div class="row filters" *ngIf="favoritos.length > 15 || searchEnable">
+    <div class="col-12">
+        <label class="searchby"><strong>Search by:</strong></label>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="type" [(ngModel)]="searchby" (click)="toogle()">
+            <label class="form-check-label" for="inlineRadio1">Type</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="move" [(ngModel)]="searchby" (click)="toogle()">
+            <label class="form-check-label" for="inlineRadio2">Move</label>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="text" class="form-control search"  placeholder="Find your Pokemon" [(ngModel)]="search" (keyup)="searchPokemon()">
+        </div>
+    </div>
+</div>
+<div class="row" *ngFor="let myPokemonData of favoritos">
+    <div class="col-12">
+        <div class="card yourpoke" style="max-width: 500px;">
+            <img class="card-img-top" class="img-fluid" [src]="myPokemonData.sprites.other['official-artwork'].front_default">
+            <div class="card-body">
+                <h4 class="card-title"><img src="../../assets/pokeball.png" width="40"> {{ myPokemonData.name | uppercase }}</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+                <ngb-accordion #acc="ngbAccordion">
+                    <ngb-panel title="Location area">
+                        <ng-template ngbPanelContent>
+                            <div *ngIf="myPokemonData.locations_areas.length === 0">
+                                There is no data available
+                            </div>
+                            <ul>
+                                <li *ngFor="let location of myPokemonData.locations_areas">{{ location.location_area.name |titlecase }}</li>
+                            </ul>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel title="Stats">
+                        <ng-template ngbPanelContent>
+                            <div *ngIf="myPokemonData.stats.length === 0">
+                                There is no data available
+                            </div>
+                            <div class="row" *ngIf="myPokemonData.stats.length !== 0">
+                                <div class="col-12"><strong>Stat</strong></div>
+                            </div>
+                            <div class="row" *ngFor="let stat of myPokemonData.stats">
+                                <div class="col-4">{{ stat.stat.name | titlecase }}</div>
+                                <div class="col-8">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="200" aria-valuemin="0" aria-valuemax="200" style="width: {{ (100/200)*stat.base_stat }}%">{{ stat.base_stat }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel title="Types">
+                        <ng-template ngbPanelContent>
+                            <div *ngIf="myPokemonData.types.length === 0">
+                                There is no data available
+                            </div>
+                            <ul>
+                                <li *ngFor="let type of myPokemonData.types">{{ type.type.name |titlecase }}</li>
+                            </ul>
+                        </ng-template>
+                    </ngb-panel>
+                    <ngb-panel title="Moves">
+                        <ng-template ngbPanelContent>
+                            <div *ngIf="myPokemonData.moves.length === 0">
+                                There is no data available
+                            </div>
+                            <ul>
+                                <li *ngFor="let move of myPokemonData.moves">{{ move.move.name |titlecase }}</li>
+                            </ul>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </ul>
+        </div>
+    </div>
+</div>

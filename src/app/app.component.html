@@ -1,17 +1,15 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><img src="../assets/pokemon.png" width="100"></a>
     <div class="navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a class="nav-item nav-link" href="pokemon/list">Pokemon List <i class="fas fa-list"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-item nav-link" href="pokemon/favorites">Favorites <i class="far fa-heart fa-lg"><sup>{{ numFavorites }}</sup></i></a>
+          <a class="nav-item nav-link" href="pokemon/favorites">Favorites <i class="far fa-heart fa-lg"><sup class="text-danger"><strong>{{ numFavorites }}</strong></sup></i></a>
         </li>
       </ul>
-      <span class="navbar-text">
-        <a class="navbar-brand" href="#">IBM-Pokemon</a>
-      </span>
     </div>
   </nav>
 </header>

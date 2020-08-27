@@ -13,10 +13,14 @@ export class WelcomePokeService {
    }
 
    getMyPokemon(name: string){
+    let infoPoke = {};
     return this.httpClient.get(this.url + name).toPromise()
     .then(item => {
-      console.log(item);
-      return item;
+      infoPoke = item;
+      return this.httpClient.get(item.location_area_encounters).toPromise();
+    }).then(locations => {
+      infoPoke.locations_areas = locations;
+      return infoPoke;
     });
    }
 }

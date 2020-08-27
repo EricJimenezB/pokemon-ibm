@@ -6,6 +6,7 @@ import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { PokeDataService } from './poke-data.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FeaturesRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [PokeDataService]
 })
