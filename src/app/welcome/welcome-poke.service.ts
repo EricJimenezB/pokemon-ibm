@@ -13,9 +13,9 @@ export class WelcomePokeService {
    }
 
    getMyPokemon(name: string){
-    let infoPoke = {};
+    let infoPoke: any;
     return this.httpClient.get(this.url + name).toPromise()
-    .then(item => {
+    .then((item: any) => {
       infoPoke = item;
       return this.httpClient.get(item.location_area_encounters).toPromise();
     }).then(locations => {

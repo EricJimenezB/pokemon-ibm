@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FavoritesService } from './favorites.service';
-import { resolve } from 'dns';
-import { rejects } from 'assert';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +21,9 @@ export class PokeDataService {
       else{
         let allFavorites = [];
         favorites.forEach(item => {
-          let infoPoke = {};
+          let infoPoke: any;
           this.httpClient.get(this.url + item.id).toPromise()
-          .then(poke => {
+          .then((poke: any) => {
             infoPoke = poke;
             this.httpClient.get(poke.location_area_encounters).toPromise().then(locations => {
               infoPoke.locations_areas = locations;
@@ -43,7 +41,7 @@ export class PokeDataService {
     const arrPoke = [];
 
     return this.httpClient.get(this.url + name).toPromise()
-    .then(item => {
+    .then((item: any) => {
       console.log(item);
       item.favorites = this.favoritesService.isInFavorites(item.id);
       arrPoke.push(item);
@@ -52,15 +50,15 @@ export class PokeDataService {
   }
 
   getPokemons(url: string = this.url): Promise<any>{
-    const arrPoke = [];
+    let arrPoke = [];
     let next = '';
     let previous = '';
 
     return this.httpClient.get(url).toPromise()
-    .then(data => {
+    .then((data: any) => {
       next = data.next;
       previous = data.previous;
-      return data.results
+      return data.results;
     })
       .then(items => items.map((item) => {
         return this.httpClient.get(item.url).toPromise();
